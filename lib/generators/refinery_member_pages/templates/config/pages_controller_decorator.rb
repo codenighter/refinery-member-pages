@@ -3,7 +3,7 @@ Refinery::PagesController.class_eval do
 
   protected
   def check_members_only
-    if page.members_only? && !signed_in?
+    if page.members_only? && !public_send(config.signed_in_method)
       flash[:notice] = t('login_required', scope: 'notice')
       redirect_to root_url
       false
